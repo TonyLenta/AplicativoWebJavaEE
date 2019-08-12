@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"> 
+      
+
+<h:head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>PUBLICACIONES</title>
+</h:head> 
+<body> 
+<p:commandButton value="Nuevo" action="newPublicacionesGenerico?faces-redirect=true"
+actionListener="#{publicacionesControllerGenerico.limpiar()}" ajax="true" >
+</p:commandButton>
+
+<h:form id="frmGeneral" enctype="multipart/form-data">
+<h:outputLabel value="hola" />
+
+
+<p:dataTable id="tablaPublicaciones" var="a" value="#{publicacionesControllerGenerico.listaFindAll}">
+    <p:column headerText="Cedula">
+        <h:outputText value="#{a.id}" />
+    </p:column>
+ 
+    <p:column headerText="Editorial">
+        <h:outputText value="#{a.editorial}" />
+    </p:column>
+ 
+ 
+   <p:column headerText="Menu" >
+		<p:toolbarGroup align="right">
+		<p:menuButton value="Opciones">
+		<p:menuitem value="Modificar" action="newPublicaciones.jsf" 
+		actionListener="#{publicacionesControllerGenerico.buscar}" ajax="false">
+		<f:attribute name="publicacionesbuscar" value="#{a.id}"/>
+		</p:menuitem>
+		
+		<p:menuitem value="eliminar" 
+		onclick="if (!confirm('esta seguro de eliminar?')) return false"
+		actionListener="#{publicacionesControllerGenerico.eliminar}" update="tablaEditorial"
+		ajax="true">
+		<f:attribute name="publicacioneseliminar" value="#{a.id}"/>
+		</p:menuitem>
+		</p:menuButton>
+		</p:toolbarGroup>
+ </p:column>
+</p:dataTable>
+
+
+</h:form>
+
+
+</body> 
+</html>
